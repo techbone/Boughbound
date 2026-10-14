@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0c2526" />
+    <meta name="description" content="One seed. Many chances. Steer a growing tree toward the light in Boughbound, a short browser arcade game where every run becomes a portrait." />
+    <title>Boughbound — Every branch is a chance</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div id="scene" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="masthead">
+      <a class="wordmark" href="/" aria-label="Boughbound home"><svg viewBox="0 0 32 40" aria-hidden="true"><path d="M16 37V7M16 25C5 25 4 18 4 15c8 0 12 4 12 10ZM16 17c0-9 5-12 12-12 0 8-4 12-12 12Z"/></svg><span>BOUGHBOUND</span></a>
+      <div class="header-actions">
+        <button id="effects" class="quiet-button" aria-pressed="false" title="Reduce visual effects"><span class="effects-symbol" aria-hidden="true">✧</span><span class="button-label">Effects</span></button>
+        <button id="sound" class="quiet-button" aria-pressed="false" title="Toggle sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3c2 2 2 6 0 8m3-11c4 4 4 10 0 14"/></svg><span id="sound-label" class="button-label">Sound off</span></button>
+        <button id="pause" class="quiet-button" hidden aria-label="Pause game">Ⅱ <span class="button-label">Pause</span></button>
+      </div>
+    </header>
+
+    <main>
+      <section id="loading" class="loading-screen" aria-live="polite"><span class="eyebrow">A seed is waking</span><p>Finding the light…</p></section>
+      <section id="title" class="title-screen" hidden aria-labelledby="title-heading">
+        <div class="title-copy">
+          <p class="eyebrow"><span class="tiny-line"></span> A LIVING ARCADE</p>
+          <h1 id="title-heading">Grow a little<br><em>wilder.</em></h1>
+          <p class="intro">One seed. Many chances.<br>Guide every branch toward the light.<br>See what you become.</p>
+          <button id="start" class="primary-button">Plant your seed <span aria-hidden="true">↗</span></button>
+          <p class="under-button">90 seconds to the canopy. A tree that's yours.</p>
+        </div>
+        <div class="specimen-label" aria-hidden="true"><span>FIG. 01</span><i></i><span>A STUDY IN POSSIBILITY</span></div>
+        <div class="title-bottom">
+          <div class="instruction"><span class="instruction-icon keys">← →</span><p><strong>Guide together</strong><span>Arrow keys · A / D · drag</span></p></div>
+          <div class="instruction"><span class="instruction-icon bud-icon">✧</span><p><strong>Branch into possibility</strong><span>Catch buds to grow new tips</span></p></div>
+          <div class="instruction"><span class="instruction-icon thorn-icon">✶</span><p><strong>Keep one alive</strong><span>Thorns take a branch, not your hope</span></p></div>
+        </div>
+        <div class="title-footer"><span>EVERY BRANCH IS A CHANCE.</span><button id="credits-open" class="text-button">Field notes & credits <span aria-hidden="true">↗</span></button></div>
+      </section>
+
+      <section id="hud" class="game-hud" hidden aria-label="Game status">
+        <div class="hud-top"><div><span class="eyebrow">LIGHT GATHERED</span><strong id="score">0000</strong></div><div class="tip-stat"><span class="eyebrow">LIVING TIPS</span><strong id="tips">1 <small>/ 6</small></strong></div></div>
+        <div class="altitude"><span id="act">01 — FOREST FLOOR</span><div class="progress-track"><i id="progress"></i></div><span id="height">0%</span></div>
+        <p id="hint" class="game-hint">← → or drag to guide your growing tip</p>
+        <div id="milestone" class="milestone-toast" aria-live="polite"></div>
+      </section>
+
+      <section id="paused" class="modal-wrap" hidden aria-labelledby="pause-heading"><div class="small-panel"><p class="eyebrow">A MOMENT IN THE SHADE</p><h2 id="pause-heading">Still growing.</h2><p>Your tree will wait for you.</p><button id="resume" class="primary-button">Return to the light <span aria-hidden="true">↗</span></button><button id="pause-restart" class="text-button">Begin again</button></div></section>
+
+      <section id="results" class="modal-wrap results-wrap" hidden aria-labelledby="result-heading">
+        <div class="results-panel">
+          <div class="portrait-wrap"><canvas id="portrait" width="900" height="1100" aria-label="Botanical portrait of the tree you grew"></canvas></div>
+          <div class="result-copy"><p id="result-kicker" class="eyebrow">A LIFE, BEAUTIFULLY BRANCHED</p><h2 id="result-heading">You became<br>something.</h2><p id="result-description">Some branches rest. The story remains.</p><div class="result-stats"><div><span>LIGHT</span><strong id="result-score">0</strong></div><div><span>CANOPY</span><strong id="result-progress">0%</strong></div><div><span>MOST TIPS</span><strong id="result-tips">1</strong></div></div><p id="best" class="best-label"></p><button id="retry" class="primary-button">Grow another way <span aria-hidden="true">↗</span></button><div class="result-secondary"><button id="download" class="secondary-button">Keep your tree <span aria-hidden="true">↓</span></button><button id="share" class="secondary-button">Share on X <span aria-hidden="true">↗</span></button></div><p id="export-status" class="export-status" aria-live="polite">Your choices, pressed into a growth portrait.</p><button id="home" class="text-button">Back to the forest</button></div>
+        </div>
+      </section>
+
+      <dialog id="credits"><button id="credits-close" class="dialog-close" aria-label="Close field notes">×</button><p class="eyebrow">FIELD NOTES</p><h2>A small game<br>about possibility.</h2><p>You guide every living tip with the same motion. Pale light adds points, golden fork buds grow a new branch, and thorns prune whatever touches them. More living tips multiply the light you gather.</p><p>Reach the canopy in 90 seconds. Keep at least one tip alive. Your finished portrait preserves your branching paths in a compressed botanical drawing.</p><p class="credit-line">Created by Musa Etudaye with AI-assisted development. Original procedural art and synthesized audio. Built with PixiJS, TypeScript and Vite.</p><p class="credit-line">Your best score and settings stay in this browser. No account, tracking or wallet required.</p><p class="credit-line">Keyboard: ← / → or A / D to steer. Escape to pause. Touch or mouse: hold and drag horizontally. Sharing opens a composer; it never posts automatically.</p></dialog>
+      <noscript><div class="small-panel">Boughbound needs JavaScript to grow. Enable it in your browser, then reload.</div></noscript>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
