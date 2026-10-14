@@ -26,6 +26,7 @@ let lastAct = 0;
 let portraitReady = false;
 let hudScore = -1;
 let hudTips = -1;
+let graphicsReady = true;
 const preferences = readPreferences();
 const sound = new Soundscape();
 const scene = new ForestScene();
@@ -53,6 +54,7 @@ function settings(): void {
 }
 
 function start(): void {
+  if (!graphicsReady) return;
   void sound.unlock(); sound.stop();
   const seeds = new Uint32Array(1); crypto.getRandomValues(seeds);
   run = createRun(seeds[0]); scene.start(); seenFork = false; seenLoss = false; lastAct = 0; toastTime = 0; portraitReady = false;
@@ -61,7 +63,7 @@ function start(): void {
 }
 
 function pause(): void { if (mode === 'playing') { setMode('paused'); sound.stop(); } }
-function resume(): void { if (mode === 'paused') { void sound.unlock(); setMode('playing'); (document.activeElement as HTMLElement | null)?.blur(); } }
+function resume(): void { if (mode === 'paused' && graphicsReady) { void sound.unlock(); setMode('playing'); (document.activeElement as HTMLElement | null)?.blur(); } }
 function toast(message: string): void { el('milestone').textContent = message; el('milestone').classList.add('visible'); toastTime = 2.4; }
 
 function updateHUD(): void {
@@ -86,7 +88,8 @@ function updateHUD(): void {
 
 function finish(): void {
   if (!run) return;
-  const oldBest = preferences.best; preferences.best = Math.max(oldBest, run.score); savePreferences(preferences);
+  const oldBest = Math.max(preferences.best, readPreferences().best);
+  preferences.best = Math.max(oldBest, run.score); savePreferences(preferences);
   const won = run.phase === 'won';
   el('result-kicker').textContent = won ? 'FROM A SEED TO THE SKY' : 'A LIFE, BEAUTIFULLY BRANCHED';
   el('result-heading').innerHTML = won ? 'You found<br>the light.' : 'You became<br>something.';
@@ -106,7 +109,7 @@ el('sound').addEventListener('click', () => { preferences.muted = !preferences.m
 el('effects').addEventListener('click', () => { preferences.reduced = !preferences.reduced; settings(); });
 el('credits-open').addEventListener('click', () => el<HTMLDialogElement>('credits').showModal());
 el('credits-close').addEventListener('click', () => el<HTMLDialogElement>('credits').close());
-window.addEventListener('keydown', (event) => { if (event.key === 'Escape') { if (mode === 'playing') pause(); else if (mode === 'paused') resume(); } });
+window.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !event.repeat) { if (mode === 'playing') pause(); else if (mode === 'paused') resume(); } });
 window.addEventListener('blur', pause);
 document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
 el('download').addEventListener('click', async () => {
@@ -144,15 +147,22 @@ function frame(now: number): void {
   }
   if (mode === 'revealing') { revealTime -= delta; if (revealTime <= 0) finish(); }
   if (toastTime > 0) { toastTime -= delta; if (toastTime <= 0) el('milestone').classList.remove('visible'); }
-  scene.render(run, mode === 'paused' ? 0 : delta);
+  if (graphicsReady) scene.render(run, mode === 'paused' ? 0 : delta);
   requestAnimationFrame(frame);
 }
 
 async function boot(): Promise<void> {
   try {
     await scene.init(el('scene')); settings(); setMode('title');
-    scene.app.canvas.addEventListener('webglcontextlost', (event) => { event.preventDefault(); pause(); el('pause-heading').textContent = 'The forest needs a moment.'; });
-    scene.app.canvas.addEventListener('webglcontextrestored', () => { el('pause-heading').textContent = 'Still growing.'; });
+    scene.app.canvas.addEventListener('webglcontextlost', (event) => {
+      event.preventDefault(); graphicsReady = false; pause();
+      el('pause-heading').textContent = 'The forest needs a moment.';
+      for (const id of ['start', 'resume', 'pause-restart', 'retry']) el<HTMLButtonElement>(id).disabled = true;
+    });
+    scene.app.canvas.addEventListener('webglcontextrestored', () => {
+      graphicsReady = true; el('pause-heading').textContent = 'Still growing.';
+      for (const id of ['start', 'resume', 'pause-restart', 'retry']) el<HTMLButtonElement>(id).disabled = false;
+    });
     requestAnimationFrame(frame);
   } catch (error) {
     console.error('Boughbound could not initialize:', error);

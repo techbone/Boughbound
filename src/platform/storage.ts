@@ -13,5 +13,7 @@ export function readPreferences(): Preferences {
   } catch { return defaults; }
 }
 export function savePreferences(p: Preferences): void {
-  try { localStorage.setItem(KEY, JSON.stringify(p)); } catch { /* Local saving must never block play. */ }
+  // A tab opened earlier must not overwrite a better score saved in another tab.
+  try { localStorage.setItem(KEY, JSON.stringify({ ...p, best: Math.max(p.best, readPreferences().best) })); }
+  catch { /* Local saving must never block play. */ }
 }
