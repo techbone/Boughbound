@@ -7,7 +7,7 @@ Use acceptance gates, not the number of features or documents, to mark progress.
 | 0 — Research and architecture | Wed 14 Oct | Official rules checked; closest references identified; scoped design and implementation boundaries recorded | Complete |
 | 1 — Playable core | Wed 14 Oct | Implement the full loop; simulation tests and production build pass; browser start, steer, fork, loss and pause smoke checks pass | Complete; broader browser verification remains below |
 | 2 — Presentation and portrait | Thu 15 Oct | Cohesive art/audio, real-run PNG, clear menus, touch layout and local best | In progress; art/audio/export implemented, download verification pending |
-| 3 — Playtest and release | Fri 16 Oct, early | Uncoached playtests, Chrome/Safari/real phone checks, tuning, clean CI and public deployment | Planned |
+| 3 — Playtest and release | Fri 16 Oct, early | Uncoached playtests, Chrome/Safari/real phone checks, tuning, passing local checks and public deployment | Planned |
 | 4 — Submission preparation | Fri 16 Oct, before evening | User-reviewed entry details, public source, playable URL, optional video/post and submission receipt | Planned |
 
 ## Commit plan
@@ -17,6 +17,8 @@ Use acceptance gates, not the number of features or documents, to mark progress.
 3. `fix: protect game state`
 
 Commit boundaries may move to keep each change coherent. Push to the user-provided GitHub remote after linking it. Do not squash away the history that demonstrates work during the round.
+
+Use local checks only. Do not add GitHub Actions workflows; the owner requested their removal on 14 October because of GitHub billing restrictions.
 
 ## Inputs needed later
 

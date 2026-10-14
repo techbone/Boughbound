@@ -27,6 +27,8 @@ npm run preview
 
 The production output is `dist/`, suitable for a static HTTPS host such as Vercel. No server, credentials, wallet connection, or paid API is needed to play.
 
+Validation runs locally with `npm run check` and `npm run build`. This repository intentionally has no GitHub Actions workflows.
+
 ## Attribution and ownership
 
 Original game code, procedural art and synthesized audio are created for this project during the October 2026 round. Dependencies retain their own licenses. See [credits](docs/CREDITS.md). No project-wide redistribution license has been selected yet; a public repository does not itself grant one.
