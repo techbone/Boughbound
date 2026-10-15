@@ -6,8 +6,8 @@ Use acceptance gates, not the number of features or documents, to mark progress.
 | --- | --- | --- | --- |
 | 0 — Research and architecture | Wed 14 Oct | Official rules checked; closest references identified; scoped design and implementation boundaries recorded | Complete |
 | 1 — Playable core | Wed 14 Oct | Implement the full loop; simulation tests and production build pass; browser start, steer, fork, loss and pause smoke checks pass | Complete; broader browser verification remains below |
-| 2 — Presentation and portrait | Thu 15 Oct | Cohesive art/audio, real-run PNG, clear menus, touch layout and local best | In progress; art/audio/export implemented, download verification pending |
-| 3 — Playtest and release | Fri 16 Oct, early | Uncoached playtests, Chrome/Safari/real phone checks, tuning, passing local checks and public deployment | Planned |
+| 2 — Presentation and portrait | Thu 15 Oct | Cohesive art/audio, real-run PNG, clear menus, touch layout and local best | Complete; hosted PNG saved and visually verified |
+| 3 — Playtest and release | Fri 16 Oct, early | Uncoached playtests, Chrome/Safari/real phone checks, tuning, passing local checks and public deployment | In progress; public deployment verified, device and human playtests remain |
 | 4 — Submission preparation | Fri 16 Oct, before evening | User-reviewed entry details, public source, playable URL, optional video/post and submission receipt | Planned |
 
 ## Commit plan
@@ -35,8 +35,8 @@ Use local checks only. Do not add GitHub Actions workflows; the owner requested 
 - [ ] Keyboard and touch, blur/hidden-tab safety, small portrait and short landscape screens.
 - [ ] Chrome and Safari; real phone frame rate and input feel measured.
 - [ ] Reduced effects and sound off retain essential feedback.
-- [ ] PNG reflects the actual run; download failure gives a useful message.
-- [ ] Public link works without login; source builds from README instructions.
+- [x] Hosted portrait download saved as a valid PNG and visually inspected; unavailable-export error messages are implemented.
+- [x] Public game link works without login; local build instructions and lockfile are present.
 - [ ] Credits and dependency notices are included; title and URLs are final.
 - [ ] Real first-time players understand the forks and want another attempt.
 
@@ -57,3 +57,11 @@ Adjusted the generated course after a 100-seed probe found that 42 idle runs cou
 Inspected the actual portrait on the desktop result screen. Browser retry, drag input, held-Escape pause and deliberate resume were exercised, and the short 844×390 title layout was inspected. The portrait button reports a generated download, but a saved browser-download file has not yet been confirmed. Safari, a real phone, context recovery and browser victory are still release checks.
 
 Vercel settings and the lockfile are ready for the owner's deployment. GitHub Actions remain removed. Send the deployed URL back for public-host testing, and try two uncoached runs on desktop and one on a phone. Report whether shared steering is understandable, whether branch losses feel fair, and whether the portrait downloads.
+
+## Public deployment checkpoint — 15 October
+
+Production URL: https://boughbound.vercel.app/. The owner deployed it. The public HTML references `index-DjH4arQV.js`, matching the reviewed local build. The title screen loads without an account. Exercised start, light collection, the first fork, branch loss, the result screen, retry, pause/resume and pointer dragging on the deployed game. Captured game console logs contained no warning/error entries during the initial checks.
+
+The deployed Keep your tree button triggered a browser download. The saved file has a valid PNG signature, 900×1100 dimensions and opens correctly. Its score (130), canopy progress (24%) and tip count (2) match the corresponding result screen. This closes the previously outstanding download check.
+
+Inspected a 390×844 hosted layout and reset the temporary viewport afterwards. Desktop simulation of that viewport does not verify real-phone touch input, frame rate or Safari behavior. Those checks, browser victory/context recovery, memory measurements and uncoached human feedback remain in Milestone 3. No new game-code defects were identified by this bounded hosted smoke test. The previously passing 14 tests and production build still apply because this checkpoint changes documentation only.

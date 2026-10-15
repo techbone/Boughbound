@@ -6,6 +6,8 @@ A browser arcade game about steering a growing tree toward the canopy. One input
 
 Repository codename: `lightward`. Public title: **Boughbound**.
 
+Play: [boughbound.vercel.app](https://boughbound.vercel.app/).
+
 ## Project documents
 
 - [Architecture](docs/ARCHITECTURE.md) — boundaries, data flow, technical choices, performance and verification.
