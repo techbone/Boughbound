@@ -72,6 +72,8 @@ Order: advance time; move living tips; detect swept collisions; resolve losses; 
 
 All tips receive the same horizontal steering velocity. Newly forked tips receive opposite lateral impulses that decay; they do not diverge forever. This keeps the control legible while retaining multiple positions to protect. Edges bend growth inward rather than silently killing tips. Hazards have visible silhouettes, conservative hitboxes, and several seconds of preview. The opening demonstrates a fork before introducing lethal hazards.
 
+Touch and pen gestures reach full steering at 28 CSS pixels of displacement; a mouse uses 60. After a long swipe, the input origin follows at the edge of that range so the player can reverse locally. Both normalize to the same [-1, 1] simulation input and maximum growth speed. Selection and touch callouts are disabled on the play surface, with active-play selection/context-menu guards. Pointer cancellation, lost capture and blur clear the gesture.
+
 The course uses authored pattern families and a bounded reachable corridor, not independent random obstacle scatter. Adjacent corridor centers may move only as far as a single tip can travel in the available time, with margin. Guaranteeing a route for one tip does not guarantee every branch can survive: sacrificing one branch is intentional play. Seed sweeps verify structural corridor constraints; human playtests are still required to establish perceived fairness.
 
 ## Time, resize and lifecycle

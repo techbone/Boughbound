@@ -9,14 +9,28 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
+    <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16m-7-7 7 7-7 7"/></symbol>
+        <symbol id="icon-external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
+        <symbol id="icon-retry" viewBox="0 0 24 24"><path d="M20 8v5h-5M20 12a8 8 0 1 0-2.5 5.8"/></symbol>
+        <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5"/></symbol>
+        <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z"/></symbol>
+        <symbol id="icon-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+        <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+        <symbol id="icon-steer" viewBox="0 0 24 24"><path d="M3 12h18m-5-5 5 5-5 5M8 7l-5 5 5 5"/></symbol>
+        <symbol id="icon-fork" viewBox="0 0 24 24"><path d="M12 21V11m0 0L5 4m7 7 7-7M3 8V2h6m6 0h6v6"/></symbol>
+        <symbol id="icon-thorn" viewBox="0 0 24 24"><path d="m12 2 2.6 5.5 5.9-1.3-1.3 5.8 2.8 5.1-6 .3-4 4.6-2.6-5.5-5.9 1.3 1.3-5.8L2 6.9l6-.3Z"/></symbol>
+      </defs>
+    </svg>
     <div id="scene" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <header class="masthead">
       <a class="wordmark" href="/" aria-label="Boughbound home"><svg viewBox="0 0 32 40" aria-hidden="true"><path d="M16 37V7M16 25C5 25 4 18 4 15c8 0 12 4 12 10ZM16 17c0-9 5-12 12-12 0 8-4 12-12 12Z"/></svg><span>BOUGHBOUND</span></a>
       <div class="header-actions">
-        <button id="effects" class="quiet-button" aria-pressed="false" title="Reduce visual effects"><span class="effects-symbol" aria-hidden="true">✧</span><span class="button-label">Effects</span></button>
+        <button id="effects" class="quiet-button" aria-pressed="false" title="Reduce visual effects"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-sparkle"/></svg><span class="button-label">Effects</span></button>
         <button id="sound" class="quiet-button" aria-pressed="false" title="Toggle sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m11 5-5 4H3v6h3l5 4V5Zm4 3c2 2 2 6 0 8m3-11c4 4 4 10 0 14"/></svg><span id="sound-label" class="button-label">Sound off</span></button>
-        <button id="pause" class="quiet-button" hidden aria-label="Pause game">Ⅱ <span class="button-label">Pause</span></button>
+        <button id="pause" class="quiet-button" hidden aria-label="Pause game"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-pause"/></svg> <span class="button-label">Pause</span></button>
       </div>
     </header>
 
@@ -27,35 +41,35 @@
           <p class="eyebrow"><span class="tiny-line"></span> A LIVING ARCADE</p>
           <h1 id="title-heading">Grow a little<br><em>wilder.</em></h1>
           <p class="intro">One seed. Many chances.<br>Guide every branch toward the light.<br>See what you become.</p>
-          <button id="start" class="primary-button">Plant your seed <span aria-hidden="true">↗</span></button>
+          <button id="start" class="primary-button">Plant your seed <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"/></svg></button>
           <p class="under-button">90 seconds to the canopy. A tree that's yours.</p>
         </div>
         <div class="specimen-label" aria-hidden="true"><span>FIG. 01</span><i></i><span>A STUDY IN POSSIBILITY</span></div>
         <div class="title-bottom">
-          <div class="instruction"><span class="instruction-icon keys">← →</span><p><strong>Guide together</strong><span>Arrow keys · A / D · drag</span></p></div>
-          <div class="instruction"><span class="instruction-icon bud-icon">✧</span><p><strong>Branch into possibility</strong><span>Catch buds to grow new tips</span></p></div>
-          <div class="instruction"><span class="instruction-icon thorn-icon">✶</span><p><strong>Keep one alive</strong><span>Thorns take a branch, not your hope</span></p></div>
+          <div class="instruction"><svg class="icon instruction-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-steer"/></svg><p><strong>Guide together</strong><span>Arrow keys · A / D · drag</span></p></div>
+          <div class="instruction"><svg class="icon instruction-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-fork"/></svg><p><strong>Branch into possibility</strong><span>Catch buds to grow new tips</span></p></div>
+          <div class="instruction"><svg class="icon instruction-icon thorn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-thorn"/></svg><p><strong>Keep one alive</strong><span>Thorns take a branch, not your hope</span></p></div>
         </div>
-        <div class="title-footer"><span>EVERY BRANCH IS A CHANCE.</span><button id="credits-open" class="text-button">Field notes & credits <span aria-hidden="true">↗</span></button></div>
+        <div class="title-footer"><span>EVERY BRANCH IS A CHANCE.</span><button id="credits-open" class="text-button">Field notes & credits <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-external"/></svg></button></div>
       </section>
 
       <section id="hud" class="game-hud" hidden aria-label="Game status">
         <div class="hud-top"><div><span class="eyebrow">LIGHT GATHERED</span><strong id="score">0000</strong></div><div class="tip-stat"><span class="eyebrow">LIVING TIPS</span><strong id="tips">1 <small>/ 6</small></strong></div></div>
         <div class="altitude"><span id="act">01 — FOREST FLOOR</span><div class="progress-track"><i id="progress"></i></div><span id="height">0%</span></div>
-        <p id="hint" class="game-hint">← → or drag to guide your growing tip</p>
+        <p id="hint" class="game-hint">Drag left or right, or use arrow keys, to guide your tip</p>
         <div id="milestone" class="milestone-toast" aria-live="polite"></div>
       </section>
 
-      <section id="paused" class="modal-wrap" hidden aria-labelledby="pause-heading"><div class="small-panel"><p class="eyebrow">A MOMENT IN THE SHADE</p><h2 id="pause-heading">Still growing.</h2><p>Your tree will wait for you.</p><button id="resume" class="primary-button">Return to the light <span aria-hidden="true">↗</span></button><button id="pause-restart" class="text-button">Begin again</button></div></section>
+      <section id="paused" class="modal-wrap" hidden aria-labelledby="pause-heading"><div class="small-panel"><p class="eyebrow">A MOMENT IN THE SHADE</p><h2 id="pause-heading">Still growing.</h2><p>Your tree will wait for you.</p><button id="resume" class="primary-button">Return to the light <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-arrow-right"/></svg></button><button id="pause-restart" class="text-button">Begin again</button></div></section>
 
       <section id="results" class="modal-wrap results-wrap" hidden aria-labelledby="result-heading">
-        <div class="results-panel">
+        <div id="results-panel" class="results-panel">
           <div class="portrait-wrap"><canvas id="portrait" width="900" height="1100" aria-label="Botanical portrait of the tree you grew"></canvas></div>
-          <div class="result-copy"><p id="result-kicker" class="eyebrow">A LIFE, BEAUTIFULLY BRANCHED</p><h2 id="result-heading">You became<br>something.</h2><p id="result-description">Some branches rest. The story remains.</p><div class="result-stats"><div><span>LIGHT</span><strong id="result-score">0</strong></div><div><span>CANOPY</span><strong id="result-progress">0%</strong></div><div><span>MOST TIPS</span><strong id="result-tips">1</strong></div></div><p id="best" class="best-label"></p><button id="retry" class="primary-button">Grow another way <span aria-hidden="true">↗</span></button><div class="result-secondary"><button id="download" class="secondary-button">Keep your tree <span aria-hidden="true">↓</span></button><button id="share" class="secondary-button">Share on X <span aria-hidden="true">↗</span></button></div><p id="export-status" class="export-status" aria-live="polite">Your choices, pressed into a growth portrait.</p><button id="home" class="text-button">Back to the forest</button></div>
+          <div class="result-copy"><p id="result-kicker" class="eyebrow">A LIFE, BEAUTIFULLY BRANCHED</p><h2 id="result-heading">You became something.</h2><p id="result-description">Some branches rest. The story remains.</p><div class="result-stats"><div><span>LIGHT</span><strong id="result-score">0</strong></div><div><span>CANOPY</span><strong id="result-progress">0%</strong></div><div><span>MOST TIPS</span><strong id="result-tips">1</strong></div></div><p id="best" class="best-label"></p><button id="retry" class="primary-button">Grow another way <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-retry"/></svg></button><div class="result-secondary"><button id="download" class="secondary-button">Keep your tree <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-download"/></svg></button><button id="share" class="secondary-button">Share on X <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-external"/></svg></button></div><p id="export-status" class="export-status" aria-live="polite">Your choices, pressed into a growth portrait.</p><button id="home" class="text-button">Back to the forest</button></div>
         </div>
       </section>
 
-      <dialog id="credits"><button id="credits-close" class="dialog-close" aria-label="Close field notes">×</button><p class="eyebrow">FIELD NOTES</p><h2>A small game<br>about possibility.</h2><p>You guide every living tip with the same motion. Pale light adds points, golden fork buds grow a new branch, and thorns prune whatever touches them. More living tips multiply the light you gather.</p><p>Reach the canopy in 90 seconds. Keep at least one tip alive. Your finished portrait preserves your branching paths in a compressed botanical drawing.</p><p class="credit-line">Created by Musa Etudaye with AI-assisted development. Original procedural art and synthesized audio. Built with PixiJS, TypeScript and Vite.</p><p class="credit-line">Your best score and settings stay in this browser. No account, tracking or wallet required.</p><p class="credit-line">Keyboard: ← / → or A / D to steer. Escape to pause. Touch or mouse: hold and drag horizontally. Sharing opens a composer; it never posts automatically.</p></dialog>
+      <dialog id="credits"><button id="credits-close" class="dialog-close" aria-label="Close field notes"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-close"/></svg></button><p class="eyebrow">FIELD NOTES</p><h2>A small game<br>about possibility.</h2><p>You guide every living tip with the same motion. Pale light adds points, golden fork buds grow a new branch, and thorns prune whatever touches them. More living tips multiply the light you gather.</p><p>Reach the canopy in 90 seconds. Keep at least one tip alive. Your finished portrait preserves your branching paths in a compressed botanical drawing.</p><p class="credit-line">Created by Musa Etudaye with AI-assisted development. Original procedural art and synthesized audio. Built with PixiJS, TypeScript and Vite.</p><p class="credit-line">Your best score and settings stay in this browser. No account, tracking or wallet required.</p><p class="credit-line">Keyboard: left/right arrows or A / D to steer. Escape to pause. Touch or mouse: hold and drag horizontally. Sharing opens a composer; it never posts automatically.</p></dialog>
       <noscript><div class="small-panel">Boughbound needs JavaScript to grow. Enable it in your browser, then reload.</div></noscript>
     </main>
     <script type="module" src="/src/main.ts"></script>

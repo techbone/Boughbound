@@ -35,11 +35,15 @@ const portrait = el<HTMLCanvasElement>('portrait');
 
 function setMode(next: Mode): void {
   mode = next; input.enabled = next === 'playing'; input.clear(); accumulator = 0;
+  document.body.dataset.mode = next;
   for (const [id, visible] of Object.entries({ loading: next === 'loading', title: next === 'title', hud: next === 'playing' || next === 'revealing', paused: next === 'paused', results: next === 'results', pause: next === 'playing' })) {
     el(id).hidden = !visible;
   }
-  if (next === 'paused') el('resume').focus();
-  if (next === 'results') el('retry').focus();
+  if (next === 'paused') el('resume').focus({ preventScroll: true });
+  if (next === 'results') {
+    el('results-panel').scrollTop = 0;
+    el('retry').focus({ preventScroll: true });
+  }
   if (next === 'title') el('start').focus({ preventScroll: true });
 }
 
@@ -78,7 +82,7 @@ function updateHUD(): void {
   const act = run.elapsed >= 60 ? 2 : run.elapsed >= 25 ? 1 : 0;
   el('act').textContent = ['01 — FOREST FLOOR', '02 — THE UNDERSTORY', '03 — THE CANOPY'][act];
   if (act !== lastAct) { lastAct = act; toast(act === 1 ? 'Into the understory.' : 'The light is closer now.'); }
-  let hint = '← → or drag to guide your growing tip';
+  let hint = 'Drag left or right, or use arrow keys, to guide your tip';
   if (run.elapsed > 3 && !seenFork) hint = 'The golden branching bud grows a second tip';
   if (seenFork) hint = 'One motion guides every tip · light earns more with more branches';
   if (run.elapsed > 7 && run.elapsed < 12) hint = 'Thorns prune a tip. Keep at least one alive.';
@@ -92,7 +96,7 @@ function finish(): void {
   preferences.best = Math.max(oldBest, run.score); savePreferences(preferences);
   const won = run.phase === 'won';
   el('result-kicker').textContent = won ? 'FROM A SEED TO THE SKY' : 'A LIFE, BEAUTIFULLY BRANCHED';
-  el('result-heading').innerHTML = won ? 'You found<br>the light.' : 'You became<br>something.';
+  el('result-heading').textContent = won ? 'You found the light.' : 'You became something.';
   el('result-description').textContent = won ? 'The canopy is yours. How much light could another path hold?' : 'Some branches rest. The story remains. Try a different path.';
   el('result-score').textContent = run.score.toLocaleString(); el('result-progress').textContent = `${Math.round(run.height / HEIGHT * 100)}%`; el('result-tips').textContent = String(run.peakTips);
   el('best').textContent = run.score > oldBest ? 'A NEW PERSONAL BEST' : `YOUR BEST · ${preferences.best.toLocaleString()} LIGHT`;
@@ -112,6 +116,9 @@ el('credits-close').addEventListener('click', () => el<HTMLDialogElement>('credi
 window.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !event.repeat) { if (mode === 'playing') pause(); else if (mode === 'paused') resume(); } });
 window.addEventListener('blur', pause);
 document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+const preventGameSelection = (event: Event): void => { if (mode === 'playing') event.preventDefault(); };
+document.addEventListener('selectstart', preventGameSelection);
+document.addEventListener('contextmenu', preventGameSelection);
 el('download').addEventListener('click', async () => {
   if (!run || !portraitReady) return;
   const button = el<HTMLButtonElement>('download'); button.disabled = true;

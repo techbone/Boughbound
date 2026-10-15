@@ -65,3 +65,9 @@ Production URL: https://boughbound.vercel.app/. The owner deployed it. The publi
 The deployed Keep your tree button triggered a browser download. The saved file has a valid PNG signature, 900×1100 dimensions and opens correctly. Its score (130), canopy progress (24%) and tip count (2) match the corresponding result screen. This closes the previously outstanding download check.
 
 Inspected a 390×844 hosted layout and reset the temporary viewport afterwards. Desktop simulation of that viewport does not verify real-phone touch input, frame rate or Safari behavior. Those checks, browser victory/context recovery, memory measurements and uncoached human feedback remain in Milestone 3. No new game-code defects were identified by this bounded hosted smoke test. The previously passing 14 tests and production build still apply because this checkpoint changes documentation only.
+
+## Real-phone feedback — 15 October
+
+The owner's iPhone screenshots exposed issues that viewport simulation did not establish: text arrows rendered as emoji, touch steering needed too much travel, and holding/dragging could select the page. Replaced interface glyphs with original stroke SVG icons, shortened touch/pen steering travel to 28px (mouse remains 60px), and made the origin follow long swipes for easier reversal. Added selection/callout CSS and active-play selection/context-menu guards without changing simulation movement limits.
+
+Also corrected mobile result-heading spaces, kept the portrait frame fitted to its actual aspect ratio, prevented automatic retry focus from scrolling past the portrait, and compacted the title layout for short phones. Checked layouts at 390×667 and 320×568. All 19 tests pass, including five input regressions covering sensitivity, reversal, cancellation, multiple pointers, keyboard/blur handling and selection suppression. The owner still needs to confirm the updated feel and long-press behavior on the actual phone after deployment.
