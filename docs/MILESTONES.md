@@ -24,7 +24,7 @@ Use local checks only. Do not add GitHub Actions workflows; the owner requested 
 
 - GitHub remote is configured: `git@github-personal:techbone/Boughbound.git`.
 - Repository-local author is `musaawwaletudaye <79253346+techbone@users.noreply.github.com>`; use short subject-only commits and no coauthor trailers.
-- Hosting access or an existing deployment project when ready to publish.
+- The owner will deploy to Vercel personally; provide the final public URL for verification. Build settings are in `docs/DEPLOYMENT.md` and `vercel.json`.
 - Three brief human playtests and one real phone test before calling the game release-ready.
 - Submission name/handle, email and Base payout address at the submission milestone. Never require a private key or seed phrase.
 
@@ -49,3 +49,11 @@ Fixed repeated Escape toggling, resuming during graphics-context loss, and an ol
 Browser evidence: title screen loads without captured warning/error logs; starting, keyboard steering, first fork, pruning, loss/result transition and pause were exercised. A 390×844 viewport was inspected; that is layout verification, not a real phone performance test. The result DOM contained the portrait and expected score/actions. The PNG-download automation was interrupted before confirming a saved file.
 
 Still needed before release: verify downloaded PNG, inspect the result portrait visually, browser win/resume/retry checks, pointer/touch play, short landscape layout, real Safari/phone runs, context-loss recovery in a browser, memory/performance measurements and uncoached human playtests. Tune branching and difficulty from those observations before adding a second hazard.
+
+## Playability checkpoint — 15 October
+
+Adjusted the generated course after a 100-seed probe found that 42 idle runs could reach the canopy. Later corridors now make readable lateral sweeps, and thorns line their outer edges instead of leaving incidental safe lanes. In the updated 100-seed check, a simple controller following the visible corridor completed every course; idle input completed none. This establishes a reachable route and an active-play requirement, not human difficulty or fun. The test is retained in `src/game/playability.test.ts`. All 14 local tests and the production build pass.
+
+Inspected the actual portrait on the desktop result screen. Browser retry, drag input, held-Escape pause and deliberate resume were exercised, and the short 844×390 title layout was inspected. The portrait button reports a generated download, but a saved browser-download file has not yet been confirmed. Safari, a real phone, context recovery and browser victory are still release checks.
+
+Vercel settings and the lockfile are ready for the owner's deployment. GitHub Actions remain removed. Send the deployed URL back for public-host testing, and try two uncoached runs on desktop and one on a phone. Report whether shared steering is understandable, whether branch losses feel fair, and whether the portrait downloads.

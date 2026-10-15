@@ -10,3 +10,5 @@
 - Vitest: MIT, https://github.com/vitest-dev/vitest
 
 The lockfile is the dependency inventory; bundled dependency license notices must be retained. Add a source, author and license here before importing any external art, font or audio asset.
+
+Production dependency notices are included in [`public/THIRD_PARTY_NOTICES.txt`](../public/THIRD_PARTY_NOTICES.txt), which is copied to the deployed site by Vite. Refresh that inventory when production dependencies change. The `@pixi/colord` package omits its license file; its notice is retained from the upstream repository linked in the notices file.

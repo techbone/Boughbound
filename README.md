@@ -12,6 +12,7 @@ Repository codename: `lightward`. Public title: **Boughbound**.
 - [Game design](docs/GAME_DESIGN.md) — rules, visual direction, scope and playtest questions.
 - [Research](docs/RESEARCH.md) — contest requirements, comparable games, technical sources and uncertainties.
 - [Milestones](docs/MILESTONES.md) — delivery gates and current status.
+- [Deployment](docs/DEPLOYMENT.md) — Vercel settings and public-link checks.
 
 ## Development
 
