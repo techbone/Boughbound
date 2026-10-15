@@ -5,6 +5,7 @@ export class Input {
   private pointerId: number | null = null;
   private origin = 0;
   private drag = 0;
+  private dragRange = 60;
   enabled = false;
 
   constructor(private surface: HTMLElement) {
@@ -16,11 +17,19 @@ export class Input {
     window.addEventListener('blur', () => this.clear());
     surface.addEventListener('pointerdown', (event) => {
       if (!this.enabled || this.pointerId !== null || event.button !== 0) return;
+      event.preventDefault();
+      this.dragRange = event.pointerType === 'touch' || event.pointerType === 'pen' ? 28 : 60;
       this.pointerId = event.pointerId; this.origin = event.clientX; this.drag = 0;
       surface.setPointerCapture(event.pointerId);
     });
     surface.addEventListener('pointermove', (event) => {
-      if (event.pointerId === this.pointerId) this.drag = clamp((event.clientX - this.origin) / 60, -1, 1);
+      if (event.pointerId !== this.pointerId) return;
+      event.preventDefault();
+      const distance = event.clientX - this.origin;
+      this.drag = clamp(distance / this.dragRange, -1, 1);
+      // Keep the thumb's neutral point nearby during long swipes, so reversing
+      // never requires dragging all the way back to the initial touch position.
+      if (Math.abs(distance) > this.dragRange) this.origin = event.clientX - this.drag * this.dragRange;
     });
     const release = (event: PointerEvent) => {
       if (event.pointerId === this.pointerId) this.clear();
@@ -28,6 +37,9 @@ export class Input {
     surface.addEventListener('pointerup', release);
     surface.addEventListener('pointercancel', release);
     surface.addEventListener('lostpointercapture', release);
+    const preventSelection = (event: Event) => { if (this.enabled) event.preventDefault(); };
+    surface.addEventListener('contextmenu', preventSelection);
+    surface.addEventListener('selectstart', preventSelection);
   }
 
   value(): number {
