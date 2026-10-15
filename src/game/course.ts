@@ -17,13 +17,24 @@ export function makeCourse(seed: number): { entities: Entity[]; corridors: Corri
   add('light', 172, 490, 11); add('light', 308, 490, 11);
   let center = 240;
   let row = 0;
+  const firstTurn = random() < .5 ? -1 : 1;
   for (let y = 690; y < HEIGHT - 250; y += 250) {
-    center = clamp(center + (random() - 0.5) * 140, 132, GAME.width - 132);
+    if (row < 4) {
+      center = clamp(center + (random() - .5) * 80, 165, 315);
+    } else {
+      // Readable sweeps make the later ascent require steering. Random walking
+      // alone could leave a stationary tip safe for the entire course.
+      const direction = Math.floor((row - 4) / 4) % 2 === 0 ? firstTurn : -firstTurn;
+      const target = 240 + direction * 106;
+      center = clamp(center + clamp(target - center, -64, 64) + (random() - .5) * 16, 132, GAME.width - 132);
+    }
     const halfWidth = 100 - y / HEIGHT * 34;
     corridors.push({ x: center, y, halfWidth });
-    for (let x = 32; x < GAME.width - 15; x += 59) {
-      const radius = 22 + random() * 6;
-      if (Math.abs(x - center) > halfWidth + radius + GAME.tipRadius) {
+    for (const side of [-1, 1]) {
+      for (let distance = halfWidth + GAME.tipRadius + 3; distance < GAME.width; distance += 53) {
+        const radius = 22 + random() * 6;
+        const x = center + side * (distance + radius);
+        if (x < 12 || x > GAME.width - 12) break;
         add('thorn', x, y + (row % 2 ? 10 : -10), radius);
       }
     }
