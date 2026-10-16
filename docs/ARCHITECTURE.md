@@ -58,6 +58,8 @@ src/
   render/
     scene.ts              Pixi world, camera and visual effects
     atmosphere.ts         original procedural landscape textures
+  dev/
+    qa.ts                 local-only replay/context checks; excluded from production
 ```
 
 ## Simulation contract

@@ -7,8 +7,8 @@ Use acceptance gates, not the number of features or documents, to mark progress.
 | 0 — Research and architecture | Wed 14 Oct | Official rules checked; closest references identified; scoped design and implementation boundaries recorded | Complete |
 | 1 — Playable core | Wed 14 Oct | Implement the full loop; simulation tests and production build pass; browser start, steer, fork, loss and pause smoke checks pass | Complete; broader browser verification remains below |
 | 2 — Presentation and portrait | Thu 15 Oct | Cohesive art/audio, real-run PNG, clear menus, touch layout and local best | Complete; hosted PNG saved and visually verified |
-| 3 — Playtest and release | Fri 16 Oct, early | Uncoached playtests, Chrome/Safari/real phone checks, tuning, passing local checks and public deployment | In progress; public deployment verified, device and human playtests remain |
-| 4 — Submission preparation | Fri 16 Oct, before evening | User-reviewed entry details, public source, playable URL, optional video/post and submission receipt | Planned |
+| 3 — Playtest and release | Fri 16 Oct, early | Uncoached playtests, Chrome/Safari/real phone checks, tuning, passing local checks and public deployment | Engineering checks pass; owner confirms phone controls; first-time player and separate Safari checks remain |
+| 4 — Submission preparation | Fri 16 Oct, before evening | User-reviewed entry details, public source, playable URL, optional video/post and submission receipt | Draft prepared; review and submission follow the final playtests |
 
 ## Commit plan
 
@@ -30,14 +30,14 @@ Use local checks only. Do not add GitHub Actions workflows; the owner requested 
 
 ## Release checklist
 
-- [ ] `npm ci` on a clean environment, type checks, simulation tests, production build.
-- [ ] No console errors during loading, playing, pause/resume, results or repeated restart.
+- [x] `npm ci` on a clean environment, type checks, simulation tests, production build.
+- [x] No captured console errors in the available in-app browser during loading, playing, pause/resume, results, graphics restoration and repeated renderer restarts.
 - [ ] Keyboard and touch, blur/hidden-tab safety, small portrait and short landscape screens.
 - [ ] Chrome and Safari; real phone frame rate and input feel measured.
-- [ ] Reduced effects and sound off retain essential feedback.
+- [x] Reduced effects and sound off retain essential visual feedback in win/loss checks.
 - [x] Hosted portrait download saved as a valid PNG and visually inspected; unavailable-export error messages are implemented.
 - [x] Public game link works without login; local build instructions and lockfile are present.
-- [ ] Credits and dependency notices are included; title and URLs are final.
+- [x] Credits and dependency notices are included; title and URLs are final.
 - [ ] Real first-time players understand the forks and want another attempt.
 
 ## Review checkpoint — 14 October
@@ -71,3 +71,15 @@ Inspected a 390×844 hosted layout and reset the temporary viewport afterwards. 
 The owner's iPhone screenshots exposed issues that viewport simulation did not establish: text arrows rendered as emoji, touch steering needed too much travel, and holding/dragging could select the page. Replaced interface glyphs with original stroke SVG icons, shortened touch/pen steering travel to 28px (mouse remains 60px), and made the origin follow long swipes for easier reversal. Added selection/callout CSS and active-play selection/context-menu guards without changing simulation movement limits.
 
 Also corrected mobile result-heading spaces, kept the portrait frame fitted to its actual aspect ratio, prevented automatic retry focus from scrolling past the portrait, and compacted the title layout for short phones. Checked layouts at 390×667 and 320×568. All 19 tests pass, including five input regressions covering sensitivity, reversal, cancellation, multiple pointers, keyboard/blur handling and selection suppression. The owner still needs to confirm the updated feel and long-press behavior on the actual phone after deployment.
+
+## Release checkpoint — 16 October
+
+The owner confirmed that mobile steering reversal and accidental page selection are both resolved. Their question about simplicity does not establish whether first-time players want another run. Preserve the controls and rules for now: show the existing light multiplier, bloom surviving tips at the canopy, and explain the completion bonus on the result screen. No additional hazard, account system or progression economy was added.
+
+A clean temporary source copy installed all pinned packages with `npm ci`, passed all 19 tests and built successfully with Node 22.23.2. The default elevated shell initially selected a Node executable with the wrong CPU architecture; explicitly selecting the working ARM runtime resolved that environment issue. The production bundle contains no QA control strings or QA module, and includes dependency notices.
+
+The local development-only QA panel exercised an accelerated seed-42 victory through the real application's reveal/results flow: 990 light, 100% canopy, peak two tips and a 650-point completion bonus. Ten replays of the same complete run each retained 30 scene nodes. This checks renderer cleanup, not total JavaScript/GPU memory retention, real-time human play or all possible seeds. Loss and victory remain legible with sound muted and reduced effects enabled.
+
+During a normal active run, the actual WebGL context-loss extension paused play and disabled resume/restart. Restoration enabled deliberate resume, the forest rendered again and captured console logs contained no warning/error entries. Keyboard pause/resume was also exercised in the clean production build. Win layout was inspected at 390×667; production title/layout checks covered 320×568 and 844×390. Temporary viewport overrides were reset.
+
+Safari/native Chrome checks could not run because macOS native app control permission is unavailable; the in-app browser is the verified browser. Switching between automation tabs did not produce a document visibility change, so it is not evidence for the hidden-tab pause check. Real-phone frame timing, separate Safari/Chrome runs, a full manual victory, broader memory measurements and the planned uncoached playtests remain explicit release limitations. See `docs/QA.md` for repeatable local checks.

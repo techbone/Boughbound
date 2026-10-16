@@ -15,6 +15,8 @@ Play: [boughbound.vercel.app](https://boughbound.vercel.app/).
 - [Research](docs/RESEARCH.md) — contest requirements, comparable games, technical sources and uncertainties.
 - [Milestones](docs/MILESTONES.md) — delivery gates and current status.
 - [Deployment](docs/DEPLOYMENT.md) — Vercel settings and public-link checks.
+- [Release checks](docs/QA.md) — local rehearsal controls and remaining human/device checks.
+- [Submission draft](docs/SUBMISSION.md) — entry copy and an optional video/post plan for owner review.
 
 ## Development
 
