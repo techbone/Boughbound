@@ -4,20 +4,15 @@
 
 A browser arcade game about steering a growing tree toward the canopy. One input guides every living tip. Collect light, choose when to branch, and protect at least one tip. The tree left behind is a record of your decisions.
 
-Repository codename: `lightward`. Public title: **Boughbound**.
-
 Play: [boughbound.vercel.app](https://boughbound.vercel.app/).
 
-## Project documents
+## How to play
 
-- [Architecture](docs/ARCHITECTURE.md) — boundaries, data flow, technical choices, performance and verification.
-- [Game design](docs/GAME_DESIGN.md) — rules, visual direction, scope and playtest questions.
-- [Research](docs/RESEARCH.md) — contest requirements, comparable games, technical sources and uncertainties.
-- [Milestones](docs/MILESTONES.md) — delivery gates and current status.
-- [Deployment](docs/DEPLOYMENT.md) — Vercel settings and public-link checks.
-- [Release checks](docs/QA.md) — local rehearsal controls and remaining human/device checks.
-- [Submission draft](docs/SUBMISSION.md) — entry copy and an optional video/post plan for owner review.
-- [Trailer tools](tools/TRAILER.md) — reproduce the 45-second gameplay video and original soundtrack.
+- Steer with the arrow keys, A / D, or by holding and dragging left or right. Every living tip follows the same input.
+- Gather pale light for points and catch golden buds to grow more branches. More living tips multiply the light you collect.
+- Avoid thorns and keep at least one tip alive for 90 seconds to reach the canopy.
+- Press Escape or use the pause button to pause. Sound and visual effects can be toggled independently.
+- At the end of a run, download a botanical portrait of the tree you grew or try another path.
 
 ## Development
 
@@ -31,12 +26,12 @@ npm run build
 npm run preview
 ```
 
-The production output is `dist/`, suitable for a static HTTPS host such as Vercel. No server, credentials, wallet connection, or paid API is needed to play.
+Built with TypeScript, PixiJS, Vite and Web Audio. Art is drawn procedurally, sound is synthesized, and scores and preferences are saved in the browser.
 
-Validation runs locally with `npm run check` and `npm run build`. This repository intentionally has no GitHub Actions workflows.
+The production output is `dist/`, suitable for a static HTTPS host such as Vercel. The included `vercel.json` configures installation and builds. No environment variables or backend are required.
 
 ## Attribution and ownership
 
-Original game code, procedural art and synthesized audio are created for this project during the October 2026 round. Dependencies retain their own licenses. See [credits](docs/CREDITS.md). No project-wide redistribution license has been selected yet; a public repository does not itself grant one.
+Created by Musa Etudaye with AI-assisted development for Project Treetop, October 2026. Game code, procedural/vector artwork and synthesized audio are original to this project. Typography uses system fonts.
 
-This is an independent entry. It is not an official Twigpine product. Prize eligibility and submission remain subject to the organizer's rules.
+Dependencies retain their own licenses; bundled notices are in [THIRD_PARTY_NOTICES.txt](public/THIRD_PARTY_NOTICES.txt). No project-wide redistribution license has been selected.
