@@ -57,11 +57,11 @@ function settings(): void {
   savePreferences(preferences);
 }
 
-function start(): void {
+function start(seed?: number): void {
   if (!graphicsReady) return;
   void sound.unlock(); sound.stop();
   const seeds = new Uint32Array(1); crypto.getRandomValues(seeds);
-  run = createRun(seeds[0]); scene.start(); seenFork = false; seenLoss = false; lastAct = 0; toastTime = 0; portraitReady = false;
+  run = createRun(seed ?? seeds[0]); scene.start(); seenFork = false; seenLoss = false; lastAct = 0; toastTime = 0; portraitReady = false;
   el('milestone').classList.remove('visible'); setMode('playing'); updateHUD();
   (document.activeElement as HTMLElement | null)?.blur();
 }
@@ -75,6 +75,7 @@ function updateHUD(): void {
   if (run.score !== hudScore) { el('score').textContent = String(run.score).padStart(4, '0'); hudScore = run.score; }
   if (run.tips.length !== hudTips) {
     el('tips').replaceChildren(document.createTextNode(`${run.tips.length} `), Object.assign(document.createElement('small'), { textContent: '/ 6' }));
+    el('multiplier').textContent = `${run.tips.length}× LIGHT`;
     hudTips = run.tips.length;
   }
   const percent = Math.round(run.height / HEIGHT * 100);
@@ -97,7 +98,7 @@ function finish(): void {
   const won = run.phase === 'won';
   el('result-kicker').textContent = won ? 'FROM A SEED TO THE SKY' : 'A LIFE, BEAUTIFULLY BRANCHED';
   el('result-heading').textContent = won ? 'You found the light.' : 'You became something.';
-  el('result-description').textContent = won ? 'The canopy is yours. How much light could another path hold?' : 'Some branches rest. The story remains. Try a different path.';
+  el('result-description').textContent = won ? `The canopy is yours. +${(500 + run.tips.length * 150).toLocaleString()} light for reaching it with ${run.tips.length} living ${run.tips.length === 1 ? 'tip' : 'tips'}.` : 'Some branches rest. The story remains. Try a different path.';
   el('result-score').textContent = run.score.toLocaleString(); el('result-progress').textContent = `${Math.round(run.height / HEIGHT * 100)}%`; el('result-tips').textContent = String(run.peakTips);
   el('best').textContent = run.score > oldBest ? 'A NEW PERSONAL BEST' : `YOUR BEST · ${preferences.best.toLocaleString()} LIGHT`;
   try { drawPortrait(portrait, run); portraitReady = true; el('export-status').textContent = 'Your choices, pressed into a growth portrait.'; }
@@ -106,7 +107,7 @@ function finish(): void {
   setMode('results');
 }
 
-el('start').addEventListener('click', start); el('retry').addEventListener('click', start); el('pause-restart').addEventListener('click', start);
+for (const id of ['start', 'retry', 'pause-restart']) el(id).addEventListener('click', () => start());
 el('pause').addEventListener('click', pause); el('resume').addEventListener('click', resume);
 el('home').addEventListener('click', () => { sound.stop(); run = null; scene.title(); setMode('title'); });
 el('sound').addEventListener('click', () => { preferences.muted = !preferences.muted; void sound.unlock(); settings(); });
@@ -150,7 +151,10 @@ function frame(now: number): void {
     }
     if (steps === 6) accumulator = 0;
     updateHUD();
-    if (run.phase !== 'playing') { setMode('revealing'); revealTime = preferences.reduced ? .15 : 1.1; }
+    if (run.phase !== 'playing') {
+      setMode('revealing'); revealTime = preferences.reduced ? .15 : run.phase === 'won' ? 2.2 : 1.1;
+      if (run.phase === 'won') toast('The canopy is yours.');
+    }
   }
   if (mode === 'revealing') { revealTime -= delta; if (revealTime <= 0) finish(); }
   if (toastTime > 0) { toastTime -= delta; if (toastTime <= 0) el('milestone').classList.remove('visible'); }
@@ -171,6 +175,10 @@ async function boot(): Promise<void> {
       for (const id of ['start', 'resume', 'pause-restart', 'retry']) el<HTMLButtonElement>(id).disabled = false;
     });
     requestAnimationFrame(frame);
+    if (import.meta.env.DEV && new URLSearchParams(location.search).has('qa')) {
+      const { mountQA } = await import('./dev/qa');
+      mountQA({ start, readRun: () => run, scene });
+    }
   } catch (error) {
     console.error('Boughbound could not initialize:', error);
     el('loading').replaceChildren();

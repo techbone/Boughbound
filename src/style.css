@@ -16,6 +16,7 @@ dialog{background:#102b28;color:var(--cream);border:1px solid var(--line);paddin
 .icon-library{position:absolute;overflow:hidden;pointer-events:none}
 .icon{display:block;width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
 .primary-button .icon{width:20px;height:20px}
+.multiplier{font-size:8px;letter-spacing:1.2px;color:var(--gold)}
 #result-heading{max-width:12ch;margin-inline:auto;letter-spacing:-.8px}
 .text-button{display:inline-flex;align-items:center;justify-content:center;gap:10px}
 .text-button .icon{width:13px;height:13px}

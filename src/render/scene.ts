@@ -18,6 +18,8 @@ export class ForestScene {
   private wood = new Container();
   private objects = new Graphics();
   private live = new Graphics();
+  private bloom = new Graphics();
+  private bloomTime = 0;
   private bounds = new Graphics();
   private arenaMask = new Graphics();
   private particles = new Container();
@@ -45,7 +47,7 @@ export class ForestScene {
     this.specimen = new Sprite(specimenTexture()); this.specimen.anchor.set(.5, 1);
     this.app.stage.addChild(this.background, this.morning, this.sun, this.ambient, this.specimen, this.bounds, this.world, this.arenaMask);
     this.world.mask = this.arenaMask;
-    this.world.addChild(this.wood, this.objects, this.live, this.particles);
+    this.world.addChild(this.wood, this.objects, this.live, this.bloom, this.particles);
     this.world.visible = false;
     const random = randomFromSeed(38);
     this.pollen = Array.from({ length: 65 }, () => ({ x: random(), y: random(), size: .5 + random() * 1.3, speed: .002 + random() * .006 }));
@@ -59,6 +61,7 @@ export class ForestScene {
     for (const child of this.wood.removeChildren()) child.destroy();
     for (const child of this.particles.removeChildren()) child.destroy();
     this.chunks = []; this.pathCounts.clear(); this.sparks = []; this.floaters = []; this.lastTick = -1; this.needsDraw = true;
+    this.bloom.clear(); this.bloomTime = 0;
   }
 
   effects(events: GameEvent[]): void {
@@ -116,6 +119,10 @@ export class ForestScene {
         this.drawPaths(state); this.drawEntities(state); this.drawTips(state); this.lastTick = state.tick; this.needsDraw = false;
       }
       this.updateParticles(delta);
+      if (state.phase === 'won') {
+        this.bloomTime += delta;
+        this.drawBloom(state);
+      }
     }
     this.app.render();
   }
@@ -149,6 +156,25 @@ export class ForestScene {
       g.circle(tip.x, -tip.y, 11).fill({ color: 0xe4d59e, alpha: .09 });
       g.ellipse(tip.x, -tip.y, 4, 7).fill(0xf4edc0);
       g.moveTo(tip.x, -tip.y + 8).quadraticCurveTo(tip.x - 14, -tip.y + 4, tip.x - 9, -tip.y - 3).quadraticCurveTo(tip.x - 2, -tip.y - 2, tip.x, -tip.y + 8).fill({ color: 0xb3ce9c, alpha: .85 });
+    }
+  }
+
+  private drawBloom(state: RunState): void {
+    const g = this.bloom; g.clear();
+    const opening = this.reduced ? 1 : 1 - (1 - Math.min(1, this.bloomTime / 1.4)) ** 3;
+    for (const tip of state.tips) {
+      const x = tip.x, y = -tip.y;
+      g.circle(x, y, 42 * opening).fill({ color: 0xf1dba0, alpha: .07 });
+      for (let i = 0; i < 7; i++) {
+        const angle = i * Math.PI * 2 / 7;
+        const side = 7 * opening, reach = 25 * opening;
+        const dx = Math.cos(angle), dy = Math.sin(angle);
+        g.moveTo(x, y)
+          .quadraticCurveTo(x + dx * reach * .65 - dy * side, y + dy * reach * .65 + dx * side, x + dx * reach, y + dy * reach)
+          .quadraticCurveTo(x + dx * reach * .65 + dy * side, y + dy * reach * .65 - dx * side, x, y)
+          .fill({ color: 0xe7d49a, alpha: .85 });
+      }
+      g.circle(x, y, 4).fill(0xfff1c6);
     }
   }
 
