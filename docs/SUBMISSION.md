@@ -12,7 +12,7 @@ The supplied Round 01 deadline is Friday 16 October 2026, 23:59 UTC, which is Sa
 | One line | Steer every branch with one motion, chase the canopy, and keep a botanical portrait of the tree your choices grew. |
 | Where we play it | https://boughbound.vercel.app/ |
 | Source | https://github.com/techbone/Boughbound |
-| Short video, optional | Add the public clip URL after recording; otherwise leave empty. |
+| Short video, optional | A 45-second MP4 and matching cover are prepared in `artifacts/trailer/`. Upload the MP4, then paste its public clip URL here. |
 | X handle | Owner to provide during submission. |
 | Wallet on Base | Owner to paste a payout address from their own wallet during submission. Never share a private key or recovery phrase. |
 | Email | Owner to enter privately in the organizer's form. |
@@ -25,17 +25,18 @@ Leave any website/honeypot field empty unless the actual form labels it as an or
 - **Originality:** the combination of synchronized arcade steering, living branch paths and a portrait made from that exact run is the distinctive direction. Do not claim no similar game exists.
 - **Polish:** browser play without an account, touch and keyboard controls, pause, mute, reduced effects, fast retry and a downloadable growth portrait. Describe only device checks actually completed.
 
-## Optional 45-second video
+## Prepared 45-second video
 
 | Time | Footage |
 | --- | --- |
-| 0–3s | Title and start; show the game name. |
-| 3–12s | First light and fork. Caption: “One motion. Every branch.” |
-| 12–25s | Intentional steering, multiplier growth and a survivable branch loss. |
-| 25–35s | A later ascent and the canopy bloom if a real recorded run reaches it. |
-| 35–45s | Result portrait, PNG and one-action retry; end with the public play URL. |
+| 0–3.5s | Name, forest and “Grow a little wilder.” |
+| 3.5–16.5s | Actual opening light, shared steering, branching and a survivable loss. |
+| 16.5–28.5s | Labelled later excerpt reaching five tips and surviving further pruning. |
+| 28.5–35s | Labelled final ascent and canopy bloom. |
+| 35–41.5s | The exact run's growth portrait, 2,020 light and five peak tips. |
+| 41.5–45s | Game name and public play URL. |
 
-Use genuine gameplay. Editing a longer recording into a short highlight is fine; do not present the local accelerated QA rehearsal as an unassisted real-time winning run. A clear loss-to-portrait clip is preferable to a misleading victory clip.
+The prepared video records actual gameplay with scripted steering at normal speed within each excerpt. Editorial cuts are labelled and the gameplay clock is shown. It is a demonstration, not an unassisted manual winning run. Original synthesized music and synchronized game cues accompany it. Reproduction and output details are in `tools/TRAILER.md`. The MP4 and cover are generated local artifacts, not committed binaries. Upload and public-link verification remain the owner's next steps.
 
 ## Optional X draft
 

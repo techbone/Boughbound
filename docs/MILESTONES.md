@@ -8,7 +8,7 @@ Use acceptance gates, not the number of features or documents, to mark progress.
 | 1 — Playable core | Wed 14 Oct | Implement the full loop; simulation tests and production build pass; browser start, steer, fork, loss and pause smoke checks pass | Complete; broader browser verification remains below |
 | 2 — Presentation and portrait | Thu 15 Oct | Cohesive art/audio, real-run PNG, clear menus, touch layout and local best | Complete; hosted PNG saved and visually verified |
 | 3 — Playtest and release | Fri 16 Oct, early | Uncoached playtests, Chrome/Safari/real phone checks, tuning, passing local checks and public deployment | Engineering checks pass; owner confirms phone controls; first-time player and separate Safari checks remain |
-| 4 — Submission preparation | Fri 16 Oct, before evening | User-reviewed entry details, public source, playable URL, optional video/post and submission receipt | Draft prepared; review and submission follow the final playtests |
+| 4 — Submission preparation | Fri 16 Oct, before evening | User-reviewed entry details, public source, playable URL, optional video/post and submission receipt | Entry draft and video prepared; public clip upload, final review and submission remain |
 
 ## Commit plan
 
@@ -83,3 +83,9 @@ The local development-only QA panel exercised an accelerated seed-42 victory thr
 During a normal active run, the actual WebGL context-loss extension paused play and disabled resume/restart. Restoration enabled deliberate resume, the forest rendered again and captured console logs contained no warning/error entries. Keyboard pause/resume was also exercised in the clean production build. Win layout was inspected at 390×667; production title/layout checks covered 320×568 and 844×390. Temporary viewport overrides were reset.
 
 Safari/native Chrome checks could not run because macOS native app control permission is unavailable; the in-app browser is the verified browser. Switching between automation tabs did not produce a document visibility change, so it is not evidence for the hidden-tab pause check. Real-phone frame timing, separate Safari/Chrome runs, a full manual victory, broader memory measurements and the planned uncoached playtests remain explicit release limitations. See `docs/QA.md` for repeatable local checks.
+
+## Trailer preparation — 16 October
+
+Created a 45-second, 1920×1080, 30 fps H.264/AAC MP4 and matching cover, saved in the owner's Downloads folder. The 7,947,063-byte video uses actual simulation/rendering with ordinary scripted steering on seed 2. Gameplay excerpts run at normal speed and later cuts are labelled; this is not evidence of a manual victory. The run reaches five tips, finishes with 2,020 light, and supplies the exact portrait shown in the video. Original synthesized stereo music and synchronized game cues are included.
+
+Inspected exported frames across all scenes, verified browser playback and seeking, decoded the complete MP4 without errors, and confirmed the downloaded file matches the export. The MP4 places streaming metadata before media data. Type checking and the production build pass; the game bundle hash is unchanged because recording tools are excluded from production. The owner still needs to upload the clip and use its public URL in the entry. Source and reproduction details are in `tools/TRAILER.md`.

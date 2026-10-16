@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Boughbound — local trailer studio</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#081d20;color:#eeeadd;font:14px/1.6 Arial,sans-serif;padding:24px}h1{font:32px Georgia;margin:0 0 8px}p{color:#a9baac;margin:0 0 16px}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}button,select,a{font:inherit}button,select{padding:10px 16px;border:1px solid #8e9f88;background:#d9cba1;color:#15372c}button:disabled{opacity:.5}a{color:#e4d19c;margin-right:20px}#trailer{display:block;width:min(100%,1280px);height:auto;border:1px solid #c7c79e40}#renderer{position:absolute;left:-10000px;top:0;width:960px;height:1080px}#status{display:block;margin:12px 0;color:#e4d19c}details{max-width:1280px;margin-top:16px}pre{white-space:pre-wrap;max-height:250px;overflow:auto;font-size:11px}
+  </style>
+</head>
+<body>
+  <h1>Boughbound · trailer studio</h1>
+  <p>Local production tool. Actual game simulation and renderer, with a scripted steering demo and editorial cuts. This page is excluded from the production build.</p>
+  <div class="controls">
+    <button id="record" disabled>Record 45-second trailer</button>
+    <label>Scene preview <select id="preview" disabled><option value="1.5">Opening</option><option value="12">First branches</option><option value="25.5">Five living tips</option><option value="34.5">Canopy bloom</option><option value="38">Growth portrait</option><option value="43">Closing card</option></select></label>
+  </div>
+  <output id="status" aria-live="polite">Preparing the forest…</output>
+  <canvas id="trailer" width="1920" height="1080" aria-label="Boughbound trailer preview"></canvas>
+  <p id="downloads"></p>
+  <details><summary>Recording manifest</summary><pre id="manifest"></pre></details>
+  <div id="renderer"></div>
+  <script type="module" src="/src/dev/trailer.ts"></script>
+</body>
+</html>

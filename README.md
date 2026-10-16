@@ -17,6 +17,7 @@ Play: [boughbound.vercel.app](https://boughbound.vercel.app/).
 - [Deployment](docs/DEPLOYMENT.md) — Vercel settings and public-link checks.
 - [Release checks](docs/QA.md) — local rehearsal controls and remaining human/device checks.
 - [Submission draft](docs/SUBMISSION.md) — entry copy and an optional video/post plan for owner review.
+- [Trailer tools](tools/TRAILER.md) — reproduce the 45-second gameplay video and original soundtrack.
 
 ## Development
 
